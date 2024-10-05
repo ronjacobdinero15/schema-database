@@ -1,0 +1,104 @@
+CREATE TABLE Student (
+    Student_id INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Email VARCHAR(255),
+    Progress VARCHAR(255),
+    Attendance BOOLEAN,
+    Homework_submission INT
+);
+
+
+CREATE TABLE Teachers (
+    Teachers_id INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Email VARCHAR(255),
+    Course VARCHAR(255),
+    Homework_provided INT,
+    Feedback VARCHAR(255)
+);
+
+CREATE TABLE Course (
+    Course_id INT PRIMARY KEY,
+    Course_Title VARCHAR(255),
+    Teachers_Id INT,
+    FOREIGN KEY (Teachers_Id) REFERENCES Teachers(Teachers_id)
+);
+
+
+CREATE TABLE Assignment (
+    Assignment_Id INT PRIMARY KEY,
+    Course_id INT,
+    Title VARCHAR(255),
+    Due_Date INT,
+    Student_Submission BOOLEAN,
+    FOREIGN KEY (Course_id) REFERENCES Course(Course_id)
+);
+
+
+CREATE TABLE Classroom (
+    Session_Id INT PRIMARY KEY,
+    Course_id INT,
+    Date INT,
+    Student_Attendance BOOLEAN,
+    Activities_Performed INT,
+    FOREIGN KEY (Course_id) REFERENCES Course(Course_id)
+);
+
+
+INSERT INTO Student (Student_id, Name, Email, Progress, Attendance, Homework_submission)
+VALUES 
+(1, 'Alice Johnson', 'alice.j@example.com', 'In Progress', TRUE, 5),
+(2, 'Bob Smith', 'bob.smith@example.com', 'Completed', TRUE, 10),
+(3, 'Charlie Brown', 'charlie.b@example.com', 'Behind', FALSE, 3),
+(4, 'Diana Prince', 'diana.p@example.com', 'In Progress', TRUE, 7),
+(5, 'Ethan Hunt', 'ethan.h@example.com', 'Completed', TRUE, 9),
+(6, 'Fiona Scott', 'fiona.s@example.com', 'In Progress', FALSE, 6),
+(7, 'George Clark', 'george.c@example.com', 'Behind', TRUE, 2),
+(8, 'Hannah Lee', 'hannah.l@example.com', 'In Progress', TRUE, 8),
+(9, 'Ian Wright', 'ian.w@example.com', 'Completed', TRUE, 10),
+(10, 'Jenna Smith', 'jenna.s@example.com', 'In Progress', TRUE, 4);
+
+INSERT INTO Teachers (Teachers_id, Name, Email, Course, Homework_provided, Feedback)
+VALUES 
+(1, 'Dr. Emily White', 'emily.w@example.com', 'Math 101', 5, 'Excellent work from students'),
+(2, 'Mr. John Doe', 'john.doe@example.com', 'History 201', 3, 'Good progress overall'),
+(3, 'Ms. Sarah Miles', 'sarah.m@example.com', 'Science 301', 6, 'Need improvement in assignments'),
+(4, 'Prof. Michael King', 'michael.k@example.com', 'English 101', 4, 'Satisfactory feedback'),
+(5, 'Dr. Angela Barnes', 'angela.b@example.com', 'Physics 401', 7, 'Mixed feedback from students');
+
+
+INSERT INTO Course (Course_id, Course_Title, Teachers_Id)
+VALUES 
+(1, 'Math 101', 1),
+(2, 'History 201', 2),
+(3, 'Science 301', 3),
+(4, 'English 101', 4),
+(5, 'Physics 401', 5);
+
+
+INSERT INTO Assignment (Assignment_Id, Course_id, Title, Due_Date, Student_Submission)
+VALUES 
+(1, 1, 'Algebra Homework', 20230920, TRUE),
+(2, 2, 'World War II Essay', 20230925, FALSE),
+(3, 3, 'Biology Lab Report', 20230918, TRUE),
+(4, 4, 'Essay on Shakespeare', 20230922, FALSE),
+(5, 5, 'Newton\'s Laws Assignment', 20230930, TRUE),
+(6, 1, 'Geometry Quiz', 20230927, TRUE),
+(7, 2, 'Cold War Assignment', 20230928, TRUE),
+(8, 3, 'Chemistry Experiment Report', 20230919, TRUE),
+(9, 4, 'Poetry Analysis', 20230923, FALSE),
+(10, 5, 'Thermodynamics Problems', 20230929, TRUE);
+
+
+INSERT INTO Classroom (Session_Id, Course_id, Date, Student_Attendance, Activities_Performed)
+VALUES 
+(1, 1, 20230901, TRUE, 3),
+(2, 2, 20230902, TRUE, 4),
+(3, 3, 20230903, FALSE, 2),
+(4, 4, 20230904, TRUE, 5),
+(5, 5, 20230905, TRUE, 4),
+(6, 1, 20230906, TRUE, 3),
+(7, 2, 20230907, FALSE, 4),
+(8, 3, 20230908, TRUE, 2),
+(9, 4, 20230909, TRUE, 5),
+(10, 5, 20230910, TRUE, 4);
